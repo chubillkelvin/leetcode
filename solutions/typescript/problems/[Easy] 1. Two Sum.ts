@@ -1,4 +1,4 @@
-function twoSum(nums: number[], target: number): number[] {
+function Easy1TwoSum(nums: number[], target: number): number[] {
     const lookup = {};
 
     for (let i = 0; i < nums.length; i++) {

@@ -9,19 +9,19 @@ class ListNode {
 }
 
 function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-    if (l1 === null && l2 === null) {
-        return null;
-    }
-
-    const sum = (l1?.val ?? 0) + (l2?.val ?? 0);
-    if (sum >= 10) {
-        if (l1?.next) {
-            l1.next.val++;
-            return new ListNode(sum - 10, addTwoNumbers(l1.next, l2?.next || null));
-        } else {
-            return new ListNode(sum - 10, addTwoNumbers(new ListNode(1, null), l2?.next || null));
+    const head = new ListNode();
+    let currentNode: ListNode = head;
+    while (l1 || l2) {
+        const sum: number = (l1?.val ?? 0) + (l2?.val ?? 0) + currentNode.val;
+        currentNode.val = sum % 10;
+        currentNode.next = new ListNode(sum >= 10 ? 1 : 0);
+        l1 = l1?.next || null;
+        l2 = l2?.next || null;
+        if (l1 || l2) {
+            currentNode = currentNode.next;
+        } else if (currentNode.next.val === 0) {
+            currentNode.next = null;
         }
-    } else {
-        return new ListNode(sum, addTwoNumbers(l1?.next || null, l2?.next || null));
     }
+    return head;
 }

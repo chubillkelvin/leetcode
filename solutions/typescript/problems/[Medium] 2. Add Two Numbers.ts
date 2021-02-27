@@ -1,4 +1,6 @@
 // Definition for singly-linked list.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 class ListNode {
     val: number;
     next: ListNode | null;

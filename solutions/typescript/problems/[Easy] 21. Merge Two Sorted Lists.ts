@@ -1,5 +1,4 @@
 // Definition for singly-linked list.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 class ListNode {
     val: number;
@@ -10,6 +9,7 @@ class ListNode {
     }
 }
 
+// @ts-ignore
 function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
     const pointerToHead = new ListNode();
     let currentNode = pointerToHead;

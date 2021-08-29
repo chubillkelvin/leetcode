@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
-        "format": "prettier --write --ignore-path ../../.gitignore \"problems/*.ts\"",
+        "format": "prettier --write --ignore-path ../../.gitignore \"problems/*.ts\" \"assessment/*.ts\"",
         "check": "tsc -p tsconfig.json",
         "lint": "eslint --ext .js,.ts --ignore-path ../../.gitignore ."
     },

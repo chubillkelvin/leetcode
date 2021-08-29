@@ -1,3 +1,4 @@
+// @ts-ignore
 function longestPalindrome(s: string): string {
     /**
      * Convert the input from numbers / alphabets only (e.g. "A1B2C3") to the format "A*1*B*2*C*3".

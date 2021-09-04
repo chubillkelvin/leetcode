@@ -10,26 +10,24 @@ class RanNode {
 }
 
 function copyRandomList(head: RanNode | null): RanNode | null {
-    if (head === null) return null;
-
     let curr: RanNode | null = head;
     // First pass - create duplicate nodes
     while (curr) {
-        const next = curr.next;
-        curr.next = new RanNode(curr.val, next, curr.random);
+        const next: RanNode | null = curr.next;
+        curr.next = new RanNode(curr.val, next || undefined, curr.random || undefined);
         curr = next;
     }
     // Second pass - update random pointers of the duplicate nodes
-    curr = head.next;
+    curr = head?.next || null;
     while (curr) {
         curr.random = curr.random?.next || null;
         curr = curr.next?.next || null;
     }
     // Third pass - remove original nodes
-    const newHead = head.next;
+    const newHead = head?.next || null;
     curr = head;
     while (curr) {
-        const next = curr.next;
+        const next: RanNode | null = curr.next;
         curr.next = next?.next || null;
         curr = next;
     }

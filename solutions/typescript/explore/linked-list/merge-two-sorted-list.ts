@@ -10,6 +10,7 @@
  * }
  */
 
+// @ts-ignore
 function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
     const pointerToHead = new ListNode();
     let curr = pointerToHead;

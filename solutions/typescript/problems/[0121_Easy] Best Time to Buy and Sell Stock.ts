@@ -1,3 +1,4 @@
+// @ts-ignore
 function maxProfit(prices: number[]): number {
     let buyPrice = Infinity;
     let profit = 0;

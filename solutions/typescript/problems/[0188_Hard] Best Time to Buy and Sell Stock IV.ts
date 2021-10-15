@@ -7,7 +7,7 @@ function maxProfit(k: number, prices: number[]): number {
     }
 
     // Special case 2: More trades allowed than available days - solution for Problem 122
-    if (n < 2 * k) {
+    if (n <= 2 * k) {
         let profit = 0;
         for (let i = 0; i < prices.length - 1; i++) {
             const buyPrice = prices[i];
@@ -43,11 +43,11 @@ function maxProfit(k: number, prices: number[]): number {
             // Max of two cases: [1] continue not holding any stock; [2] sell stock and get the money
             if (i > 0) {
                 dp[i][j][0] = Math.max(dp[i - 1][j][0], dp[i - 1][j][1] + prices[i]);
-            }
 
-            // Max of two cases: [1] continue holding stock; [2] buy stock and spend the money
-            if (i > 0 && j > 0) {
-                dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][0] - prices[i]);
+                // Max of two cases: [1] continue holding stock; [2] buy stock and spend the money
+                if (j > 0) {
+                    dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][0] - prices[i]);
+                }
             }
         }
     }

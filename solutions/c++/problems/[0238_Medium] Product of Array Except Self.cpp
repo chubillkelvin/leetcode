@@ -8,19 +8,17 @@ public:
         int zeroCounts = count(nums.begin(), nums.end(), 0);
         if (zeroCounts >= 2) return vector<int>(nums.size(), 0);
 
-        int prod = 1;
-        for (int num: nums) {
-            if (num != 0) prod *= num;
+        vector<int> prodLeft = vector<int>(nums.size(), 1);
+        for (int i = 1; i < nums.size(); i++) {
+            prodLeft[i] = nums[i - 1] * prodLeft[i - 1];
         }
-        vector<int> ans = {};
-        for (int num: nums) {
-            if (num == 0) {
-                ans.push_back(prod);
-            } else if (zeroCounts == 1) {
-                ans.push_back(0);
-            } else {
-                ans.push_back(prod / num);
-            }
+        vector<int> prodRight = vector<int>(nums.size(), 1);
+        for (int i = nums.size() - 2; i >= 0; i--) {
+            prodRight[i] = nums[i + 1] * prodRight[i + 1];
+        }
+        vector<int> ans = vector<int>(nums.size(), 1);
+        for (int i = 0; i < nums.size(); i++) {
+            ans[i] = prodLeft[i] * prodRight[i];
         }
         return ans;
     }

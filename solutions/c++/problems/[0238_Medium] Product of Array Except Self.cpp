@@ -13,16 +13,14 @@ public:
             if (num != 0) prod *= num;
         }
         vector<int> ans = {};
-        for (int i = 0; i < nums.size(); i++) {
-            int curr = nums[i];
-            if (curr == 0) {
+        for (int num: nums) {
+            if (num == 0) {
                 ans.push_back(prod);
             } else if (zeroCounts == 1) {
                 ans.push_back(0);
             } else {
-                ans.push_back(prod / curr);
+                ans.push_back(prod / num);
             }
-
         }
         return ans;
     }

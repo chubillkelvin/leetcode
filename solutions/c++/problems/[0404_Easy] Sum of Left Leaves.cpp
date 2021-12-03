@@ -11,8 +11,11 @@ public:
         while (!nodes.empty()) {
             auto curr = nodes.front();
             if (curr->left) {
-                nodes.push(curr->left);
-                if (!curr->left->left && !curr->left->right) total += curr->left->val;
+                if (!curr->left->left && !curr->left->right) {
+                    total += curr->left->val;
+                } else {
+                    nodes.push(curr->left);
+                }
             }
             if (curr->right) nodes.push(curr->right);
             nodes.pop();

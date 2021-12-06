@@ -29,8 +29,6 @@ public:
         }
         vector<char> fromStart = vector<char>(toStart.size(), 'U');
         for (auto it = toEnd.rbegin(); it != toEnd.rend(); it++) fromStart.push_back(*it);
-        string ans = "";
-        for (char c: fromStart) ans += c;
-        return ans;
+        return string(fromStart.begin(), fromStart.end());
     }
 };

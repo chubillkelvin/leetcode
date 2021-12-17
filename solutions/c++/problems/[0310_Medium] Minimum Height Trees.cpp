@@ -5,12 +5,12 @@ using namespace std;
 class Solution {
 public:
     vector<set<int>> adj;
-
+    
     vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges) {
         if (n == 1) return {0};
         if (n == 2) return edges[0];
 
-        adj = vector<set<int>> (n, set<int>{});
+        adj = vector<set<int>>(n, set<int>{});
         for (auto edge: edges) {
             adj[edge[0]].insert(edge[1]);
             adj[edge[1]].insert(edge[0]);

@@ -17,22 +17,20 @@ public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
         ListNode *ptToHead = new ListNode();
         auto curr = ptToHead;
-        auto curr1 = list1;
-        auto curr2 = list2;
-        while (curr1 || curr2) {
-            if (!curr1) {
-                curr->next = curr2;
-                curr2 = curr2->next;
-            } else if (!curr2) {
-                curr->next = curr1;
-                curr1 = curr1->next;
+        while (list1 || list2) {
+            if (!list1) {
+                curr->next = list2;
+                list2 = list2->next;
+            } else if (!list2) {
+                curr->next = list1;
+                list1 = list1->next;
             } else {
-                if (curr1->val <= curr2->val) {
-                    curr->next = curr1;
-                    curr1 = curr1->next;
+                if (list1->val <= list2->val) {
+                    curr->next = list1;
+                    list1 = list1->next;
                 } else {
-                    curr->next = curr2;
-                    curr2 = curr2->next;
+                    curr->next = list2;
+                    list2 = list2->next;
                 }
             }
             curr = curr->next;

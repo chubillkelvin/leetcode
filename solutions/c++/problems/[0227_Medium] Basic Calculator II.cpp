@@ -15,12 +15,10 @@ public:
                     nums.pop_back();
                     operators.pop_back();
                     nums.push_back(getResult(prev, curr, opt));
-                } else {
-                    nums.push_back(curr);
+                    return;
                 }
-            } else {
-                nums.push_back(curr);
             }
+            nums.push_back(curr);
         }
     }
 
@@ -35,7 +33,7 @@ public:
             case '/':
                 return num1 / num2;
         }
-        return -1;
+        return 0;
     }
 
     int calculate(string s) {
@@ -48,16 +46,14 @@ public:
                 continue;
             }
             handleTemp(temp, nums, operators);
-            if (c == '+' || c == '-' || c == '*' || c == '/') {
+            if (c != ' ') {
                 operators.push_back(c);
             }
         }
         handleTemp(temp, nums, operators);
         int res = nums[0];
         for (int i = 0; i < operators.size(); i++) {
-            int next = nums[i + 1];
-            char opt = operators[i];
-            res = getResult(res, next, opt);
+            res = getResult(res, nums[i + 1], operators[i]);
         }
         return res;
     }

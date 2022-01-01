@@ -1,28 +1,26 @@
-#include <bits/stdc++.h>
-
-using namespace std;
+enum Transaction {
+    buy,
+    sell
+};
 
 class Solution {
 public:
-    int maxProfit(vector<int> &prices) {
-        vector<vector<int>> profit = {};
-
-        if (prices.size() < 2) return 0;
-
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1) return 0;
+        vector<vector<int>> dp(n, vector<int>(2, -99999));
+        int maxP = 0;
         // base cases
-        profit.push_back({0, 0});
-        profit[0][0] = -prices[0]; // buy on i = 0
-        profit[0][1] = 0; // do not buy on i = 0
-        profit.push_back({0, 0});
-        profit[1][0] = max(profit[0][0], -prices[1]); // continue holding or buy on i = 1
-        profit[1][1] = max(profit[0][1], profit[0][0] + prices[1]); // either continue not buying or sell on i = 1
-
-        for (int i = 2; i < prices.size(); i++) {
-            profit.push_back({0, 0});
-            profit[i][0] = max(profit[i - 1][0], max(profit[i - 2][1], profit[i - 2][0] + prices[i - 2]) - prices[i]);
-            profit[i][1] = max(profit[i - 1][1], profit[i - 1][0] + prices[i]);
+        dp[0][sell] = 0;
+        dp[0][buy] = -prices[0];
+        dp[1][sell] = max(0, dp[0][buy] + prices[1]);
+        dp[1][buy] = max(dp[0][buy], -prices[1]);
+        maxP = max(dp[1][buy], dp[1][sell]);
+        for(int i = 2; i < n; i++) {
+            dp[i][buy] = max(dp[i-1][buy], dp[i-2][sell] - prices[i]);
+            dp[i][sell] = max(dp[i-1][sell], dp[i-1][buy] + prices[i]);
+            maxP = max(maxP, max(dp[i][buy], dp[i][sell]));
         }
-
-        return max(0, profit[prices.size() - 1][1]);
+        return maxP;
     }
 };

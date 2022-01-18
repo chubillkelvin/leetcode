@@ -19,7 +19,7 @@ public:
             if (b.size() >= n) {
                 cycles = used.back();
             } else {
-                cycles = max(used.back() / 2, 1);
+                cycles = max(used.back() / 2 - 1, 1);
             }
             time += cycles;
             for (auto num: used) if (num - cycles > 0) b.push(num - cycles);

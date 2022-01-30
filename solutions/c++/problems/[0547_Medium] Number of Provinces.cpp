@@ -4,7 +4,7 @@ class DisjointSet {
 public:
     DisjointSet(int n) {
         root.reserve(n);
-        rank = vector<int>(n, 0);
+        rank = vector<int>(n, 1);
         for (int i = 0; i < n; i++) root[i] = i;
     }
 
@@ -21,7 +21,7 @@ public:
 
     int Find(int x) {
         if (root[x] == x) return x;
-        return root[x] = root[root[x]];
+        return root[x] = Find(root[x]);
     }
 
     bool connected(int x, int y) {

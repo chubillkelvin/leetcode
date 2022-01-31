@@ -15,8 +15,6 @@ public:
     void unionSet(int x, int y) {
         int rootX = find(x);
         int rootY = find(y);
-        activeRoots.insert(rootX);
-        activeRoots.insert(rootY);
         if (rank[rootX] < rank[rootY]) {
             root[rootX] = rootY;
             activeRoots.erase(rootX);

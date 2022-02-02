@@ -6,9 +6,7 @@ public:
     }
 
     void buildDict(vector <string> dictionary) {
-        for (auto s: dictionary) {
-            dict[s.size()].push_back(s);
-        }
+        for (auto s: dictionary) dict[s.size()].push_back(s);
     }
 
     bool search(string searchWord) {
@@ -19,6 +17,7 @@ public:
             int diff = 0;
             for (int i = 0; i < n; i++) {
                 if (word[i] != searchWord[i]) diff++;
+                if (diff > 1) break;
             }
             if (diff == 1) return true;
         }

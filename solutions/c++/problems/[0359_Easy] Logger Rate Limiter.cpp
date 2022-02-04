@@ -1,20 +1,13 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 class Logger {
-private:
-    map<string, int> messageMap = {};
-
+    unordered_map<string, int> lastPrinted;
 public:
     Logger() {
 
     }
 
     bool shouldPrintMessage(int timestamp, string message) {
-        auto prevTime = messageMap.find(message);
-        if (prevTime == messageMap.end() || timestamp - prevTime->second >= 10) {
-            messageMap[message] = timestamp;
+        if (lastPrinted.find(message) == lastPrinted.end() || timestamp - lastPrinted[message] >= 10) {
+            lastPrinted[message] = timestamp;
             return true;
         }
         return false;

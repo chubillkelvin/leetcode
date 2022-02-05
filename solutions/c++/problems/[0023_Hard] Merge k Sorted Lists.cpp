@@ -17,7 +17,6 @@ struct compare {
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        auto cmp = [](ListNode* &node1, ListNode* &node2) {return node1->val < node2->val;};
         priority_queue<ListNode*, vector<ListNode*>, compare> p;
         for(auto list: lists) {
             if(list) p.push(list);

@@ -1,40 +1,31 @@
-struct Node {
-    unordered_map<char, Node*> children;
-    bool isEndOfWord = false;
-};
-
 class WordDictionary {
-    Node* root = new Node();
+    unordered_set <string> added;
+    unordered_map<int, unordered_map<string, bool>> checked;
+    unordered_map<int, vector<string>> dict;
 public:
     WordDictionary() {
 
     }
 
     void addWord(string word) {
-        auto curr = root;
-        for(char c: word) {
-            if (!curr->children[c]) curr->children[c] = new Node();
-            curr = curr->children[c];
-        }
-        curr->isEndOfWord = true;
+        dict[word.size()].push_back(word);
+        checked[word.size()].clear();
+        added.insert(word);
     }
 
     bool search(string word) {
-        auto curr = vector<Node*>{root};
-        for (char c: word) {
-            vector<Node*> next;
-            for (auto node: curr) {
-                if (c == '.') {
-                    for (auto child: node->children) if (child.second) next.push_back(child.second);
-                } else if (node && node->children[c]) {
-                    next.push_back(node->children[c]);
-                }
-            }
-            curr = next;
-            if (curr.empty()) return false;
+        if (added.count(word) > 0) return true;
+        if (checked[word.size()].find(word) != checked[word.size()].end()) return checked[word.size()][word];
+        for (string w: dict[word.size()]) if (matched(w, word)) return checked[word.size()][word] = true;
+        return checked[word.size()][word] = false;
+    }
+
+    bool matched(string word, string pattern) {
+        for (int i = 0; i < word.size(); i++) {
+            if (pattern[i] == '.') continue;
+            if (word[i] != pattern[i]) return false;
         }
-        for (auto node: curr) if (node && node->isEndOfWord) return true;
-        return false;
+        return true;
     }
 };
 

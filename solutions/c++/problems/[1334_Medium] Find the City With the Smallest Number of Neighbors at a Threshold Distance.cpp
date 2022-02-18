@@ -1,11 +1,11 @@
 class Solution {
     int n, threshold;
 public:
-    int findMin(vector<int> &dist, unordered_set<int> &mst) {
+    int findMin(vector<int> &dist, vector<bool> &spt) {
         int minDist = INT_MAX;
         int minIndex = -1;
         for (int i = 0; i < n; i++) {
-            if (mst.count(i) == 0 && dist[i] < minDist && dist[i] <= threshold) {
+            if (!spt[i] && dist[i] < minDist && dist[i] <= threshold) {
                 minDist = dist[i];
                 minIndex = i;
             }
@@ -25,19 +25,18 @@ public:
         int minCities = n;
         int minIndex = 0;
         for (int i = 0; i < n; i++) {
-            unordered_set<int> mst;
+            vector<bool> spt(n, false);
             vector<int> dist(n, INT_MAX);
             dist[i] = 0;
             int cities = 0;
             for (int j = 0; j < n; j++) {
-                int index = findMin(dist, mst);
+                int index = findMin(dist, spt);
                 if (index == -1) break;
                 cities++;
-                mst.insert(index);
+                spt[index] = true;
                 for (int k = 0; k < n; k++) {
-                    if (mst.count(k) > 0) continue;
-                    int edge = adj[index][k];
-                    if (edge > -1) dist[k] = min(dist[k], dist[index] + edge);
+                    if (spt[k] || adj[index][k] == -1) continue;
+                    dist[k] = min(dist[k], dist[index] + adj[index][k]);
                 }
             }
             if (cities <= minCities) {
